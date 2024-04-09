@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
@@ -33,7 +34,9 @@ public class TestBase {
         if (browser.equalsIgnoreCase("chrome")) {
             DriverFactory.getInstance().setDriver(new ChromeDriver());
         } else if (browser.equalsIgnoreCase("edge")) {
-            DriverFactory.getInstance().setDriver(new EdgeDriver());
+            EdgeOptions edgeOptions = new EdgeOptions();
+            edgeOptions.addArguments("--headless");
+            DriverFactory.getInstance().setDriver(new EdgeDriver(edgeOptions));
         }
         DriverFactory.getInstance().getDriver().manage().window().maximize();
         DriverFactory.getInstance().getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
